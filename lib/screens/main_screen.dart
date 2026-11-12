@@ -15,7 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   // Screens that correspond to each tab
   final List<Widget> _screens = const [
     HomeScreen(),
-    Center(child: Text('Cart Screen')),     // placeholder
+    Center(child: Text('Cart Screen')), // placeholder
     Center(child: Text('Favorites Screen')), // placeholder
     ProfileScreen(),
   ];
@@ -23,10 +23,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
-      ),
+      // appBar will not use
+      body: IndexedStack(index: _currentIndex, children: _screens),
+
+      //Bottom
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -49,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
           elevation: 0,
           selectedFontSize: 12,
           unselectedFontSize: 12,
+          // UI
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),

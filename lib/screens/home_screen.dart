@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'search_screen.dart';
+import 'product_detail_screen.dart';
 import '../widgets/banner_carousel.dart';
 import '../widgets/product_card.dart';
+import '../widgets/product_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,63 +14,6 @@ class HomeScreen extends StatelessWidget {
     {'icon': Icons.watch, 'label': 'Watches'},
     {'icon': Icons.chair, 'label': 'Furniture'},
     {'icon': Icons.sports_basketball, 'label': 'Sports'},
-  ];
-
-  static final List<Product> _demoProducts = [
-    Product(
-      id: '1',
-      name: 'Wireless Headphones',
-      category: 'Electronics',
-      price: 89.99,
-      rating: 4.7,
-      reviews: 128,
-      imageUrl: 'https://picsum.photos/seed/headphone/400/400',
-    ),
-    Product(
-      id: '2',
-      name: 'Smart Watch Pro',
-      category: 'Watches',
-      price: 149.99,
-      rating: 4.5,
-      reviews: 210,
-      imageUrl: 'https://picsum.photos/seed/watch/400/400',
-    ),
-    Product(
-      id: '3',
-      name: 'Running Shoes',
-      category: 'Sports',
-      price: 79.99,
-      rating: 4.8,
-      reviews: 95,
-      imageUrl: 'https://picsum.photos/seed/shoes/400/400',
-    ),
-    Product(
-      id: '4',
-      name: 'Leather Backpack',
-      category: 'Fashion',
-      price: 49.99,
-      rating: 4.3,
-      reviews: 64,
-      imageUrl: 'https://picsum.photos/seed/backpack/400/400',
-    ),
-    Product(
-      id: '5',
-      name: 'Bluetooth Speaker',
-      category: 'Electronics',
-      price: 59.99,
-      rating: 4.6,
-      reviews: 187,
-      imageUrl: 'https://picsum.photos/seed/speaker/400/400',
-    ),
-    Product(
-      id: '6',
-      name: 'Sunglasses',
-      category: 'Fashion',
-      price: 39.99,
-      rating: 4.4,
-      reviews: 72,
-      imageUrl: 'https://picsum.photos/seed/glasses/400/400',
-    ),
   ];
 
   @override
@@ -105,7 +50,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 14),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: _buildProductGrid(),
+              child: _buildProductGrid(context),
             ),
             const SizedBox(height: 24),
           ],
@@ -114,7 +59,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Search button (not a textfield — taps into SearchScreen)
+  // ── Search button (tap → SearchScreen) ──
   Widget _buildSearchButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -227,11 +172,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProductGrid() {
+  Widget _buildProductGrid(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: _demoProducts.length,
+      itemCount: demoProducts.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 14,
@@ -239,10 +184,16 @@ class HomeScreen extends StatelessWidget {
         childAspectRatio: 0.72,
       ),
       itemBuilder: (context, index) {
+        final product = demoProducts[index];
         return ProductCard(
-          product: _demoProducts[index],
+          product: product,
           onTap: () {
-            // TODO: navigate to ProductDetailScreen
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ProductDetailScreen(product: product),
+              ),
+            );
           },
         );
       },

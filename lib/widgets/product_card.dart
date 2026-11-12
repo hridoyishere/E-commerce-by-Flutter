@@ -1,24 +1,5 @@
 import 'package:flutter/material.dart';
-
-class Product {
-  final String id;
-  final String name;
-  final String category;
-  final double price;
-  final double rating;
-  final int reviews;
-  final String imageUrl;
-
-  Product({
-    required this.id,
-    required this.name,
-    required this.category,
-    required this.price,
-    required this.rating,
-    required this.reviews,
-    required this.imageUrl,
-  });
-}
+import 'product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -45,7 +26,7 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image
+            // ── Image ──
             Expanded(
               child: Stack(
                 children: [
@@ -53,7 +34,7 @@ class ProductCard extends StatelessWidget {
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(16)),
                     child: Image.network(
-                      product.imageUrl,
+                      product.thumbnail,
                       width: double.infinity,
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, progress) {
@@ -72,8 +53,10 @@ class ProductCard extends StatelessWidget {
                       },
                       errorBuilder: (_, __, ___) => Container(
                         color: Colors.grey.shade200,
-                        child: const Icon(Icons.image_not_supported,
-                            color: Colors.grey),
+                        child: const Icon(
+                          Icons.image_not_supported,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -97,7 +80,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            // Details
+            // ── Details ──
             Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
